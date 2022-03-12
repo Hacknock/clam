@@ -1,0 +1,25 @@
+{
+  "name": "stellaria",
+  "version": "0.0.1",
+  "description": "File upload interface is written in javascript. stellaria enable you upload file to Cloud Storage, S3 and FTP server.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hacknock/stellaria.git"
+  },
+  "keywords": [
+    "FTP",
+    "Cloud",
+    "Storage",
+    "S3"
+  ],
+  "author": "Akira Kashihara",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Hacknock/stellaria/issues"
+  },
+  "homepage": "https://github.com/Hacknock/stellaria#readme"
+}
