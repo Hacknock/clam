@@ -1,0 +1,29 @@
+{
+  "name": "stellaria",
+  "version": "0.1.0",
+  "description": "File upload interface to Google Cloud Storage, Amazon Web Service S3 and FTP(File Transfer Protocol) server is written in only frontend Javascript.",
+  "main": "stellaria.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hacknock/stellaria.git"
+  },
+  "keywords": [
+    "Cloud",
+    "Storage",
+    "S3",
+    "FTP",
+    "Javascript"
+  ],
+  "author": "Akira Kashihara",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Hacknock/stellaria/issues"
+  },
+  "homepage": "https://github.com/Hacknock/stellaria#readme",
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
+}
