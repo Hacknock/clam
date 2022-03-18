@@ -424,6 +424,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       delete window.location.href;
       delete window.location.hash;
       delete window.location.token;
+      delete window.location.configurable;
       const result = gcs.getAccessToken(window.location);
       expect(result).toStrictEqual({
         token: null,
