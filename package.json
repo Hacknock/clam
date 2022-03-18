@@ -4,7 +4,7 @@
   "description": "File upload interface to Google Cloud Storage, Amazon Web Service S3 and FTP(File Transfer Protocol) server is written in only frontend Javascript.",
   "main": "stellaria.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "repository": {
     "type": "git",
