@@ -6,6 +6,7 @@
  */
 
 import GCS from "./lib/gcs.js";
+import ToolKit from "./lib/toolkit.js";
 
 ("use strict");
 
@@ -24,7 +25,7 @@ class Stellaria {
     if (!params) throw Error("You must set the first argument.");
     if (name === "GCS") {
       if (params.clientId && params.redirectUrl && params.scope) {
-        this.module = new GCS(params);
+        this.module = new GCS(params, new ToolKit());
       } else {
         throw Error(
           "The first argument is invalid. You must set 'clientId', 'redirectUrl' and 'scope'."
