@@ -1,6 +1,3 @@
-/**
- * @jest-environment jsdom
- */
 import GCS from "../lib/gcs.js";
 import ToolKit from "../lib/toolkit.js";
 const toolKit = new ToolKit();
@@ -483,6 +480,68 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       expect(() => {
         const result = gcs.getAccessToken("hogehoge");
       }).toThrow(/^You must input location which is Object.$/);
+    });
+  });
+
+  describe("[GCS]  VALID TEST", () => {
+    it("fileList(more than 2 files), bucketName are valid without accessToken", async () => {
+      const bucketName = "test-bucket";
+      const fileName = "test.txt";
+      // fetchMock.post(
+      //   (url, opts) => {
+      //     return (
+      //       url ===
+      //       `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
+      //     );
+      //   },
+      //   {
+      //     body: {
+      //       medialink: "aaaa",
+      //     },
+      //   }
+      // );
+
+      // const response = await fetch(
+      //   `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`,
+      //   {
+      //     methos: "POST",
+      //     headers: {
+      //       "Content-Type": "text/plain",
+      //       Authorization: `Bearer fejfia0faj2`,
+      //     },
+      //     body: "fjeifeoj",
+      //   }
+      // );
+      // console.log("Response: ");
+      // console.log(response);
+      // const result = await response.json();
+      // console.log("Response json: ");
+      // console.log(result);
+      // console.log(result.medialink);
+      // make valid dummy filelist.
+      const file = new File(["foo"], "foo.txt", {
+        type: "text/plain",
+      });
+      const file2 = new File(["this is test file"], "test.txt", {
+        type: "text/plain",
+      });
+      const input = document.createElement("input");
+      input.setAttribute("type", "file");
+      input.setAttribute("name", "file-upload");
+      input.multiple = true;
+      var test = input.files;
+      let x = Object.create(test); //FileListを継承して新たなObjectを作成
+      x[0] = file;
+      x[1] = file2;
+      console.log(x);
+      // FileList { '0': File {}, '1': File {} }
+      console.log(x[0].type);
+      // text/plain
+      console.log(x[0].name);
+      // foo.txt
+      console.log(x[1]);
+      // File {}
+      expect(1).toBe(1); //FileListの作成を試したいのでダミー
     });
   });
 });
