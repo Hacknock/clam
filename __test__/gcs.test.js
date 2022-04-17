@@ -1,7 +1,12 @@
+// @vitest-environment jsdom
+
+import { describe, it, expect } from "vitest";
 import GCS from "../lib/gcs.js";
 import ToolKit from "../lib/toolkit.js";
 const toolKit = new ToolKit();
 import crypto from "crypto";
+
+("use strict");
 
 describe("[GCS] CONSTRUCTOR VALID TEST", () => {
   it("Assumed valid parameter", () => {
@@ -375,6 +380,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
           hash: `#state=pass-through%20value&access_token=${dummyJoint}.${dummyToken}&token_type=Bearer&expires_in=1000&scope=https://www.googleapis.com/auth/devstorage.read_only`,
           configurable: true,
         },
+        configurable: true,
       });
       const result = gcs.getAccessToken(window.location);
       expect(result).toStrictEqual({ token: `${dummyJoint}.${dummyToken}` });
@@ -391,6 +397,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
           hash: "#state=pass-through%20value",
           configurable: true,
         },
+        configurable: true,
       });
       const result = gcs.getAccessToken(window.location);
       expect(result).toStrictEqual({
@@ -409,6 +416,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
           href: url,
           configurable: true,
         },
+        configurable: true,
       });
       const result = gcs.getAccessToken(window.location);
       expect(result).toStrictEqual({
