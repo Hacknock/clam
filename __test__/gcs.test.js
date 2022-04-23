@@ -5,6 +5,7 @@ import GCS from "../lib/gcs.js";
 import ToolKit from "../lib/toolkit.js";
 const toolKit = new ToolKit();
 import crypto from "crypto";
+import { mockPost } from "vi-fetch";
 
 ("use strict");
 
@@ -491,42 +492,12 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
     });
   });
 
-  describe("[GCS]  VALID TEST", () => {
+  describe("[GCS] uploadFiles VALID TEST", () => {
     it("fileList(more than 2 files), bucketName are valid without accessToken", async () => {
-      const bucketName = "test-bucket";
-      const fileName = "test.txt";
-      // fetchMock.post(
-      //   (url, opts) => {
-      //     return (
-      //       url ===
-      //       `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
-      //     );
-      //   },
-      //   {
-      //     body: {
-      //       medialink: "aaaa",
-      //     },
-      //   }
-      // );
-
-      // const response = await fetch(
-      //   `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`,
-      //   {
-      //     methos: "POST",
-      //     headers: {
-      //       "Content-Type": "text/plain",
-      //       Authorization: `Bearer fejfia0faj2`,
-      //     },
-      //     body: "fjeifeoj",
-      //   }
-      // );
-      // console.log("Response: ");
-      // console.log(response);
-      // const result = await response.json();
-      // console.log("Response json: ");
-      // console.log(result);
-      // console.log(result.medialink);
-      // make valid dummy filelist.
+      /**
+       * Mock FileList
+       */
+      // Mock File
       const file = new File(["foo"], "foo.txt", {
         type: "text/plain",
       });
@@ -538,7 +509,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       input.setAttribute("name", "file-upload");
       input.multiple = true;
       var test = input.files;
-      let x = Object.create(test); //FileListを継承して新たなObjectを作成
+      let x = Object.create(test); // Make new object that is built upon FileList
       x[0] = file;
       x[1] = file2;
       console.log(x);
@@ -549,6 +520,22 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       // foo.txt
       console.log(x[1]);
       // File {}
+
+      /**
+       *  Mock fetch
+       */
+      const bucketName = "hogehoge";
+      const fileName = "test.txt";
+
+      const mock = mockPost(
+        `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
+      ).willResolve({
+        json: () =>
+          Promise.resolve({
+            bucket: bucketName,
+            content,
+          }),
+      });
       expect(1).toBe(1); //FileListの作成を試したいのでダミー
     });
   });
