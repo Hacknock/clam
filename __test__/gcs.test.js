@@ -492,51 +492,51 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
     });
   });
 
-  describe("[GCS] uploadFiles VALID TEST", () => {
-    it("fileList(more than 2 files), bucketName are valid without accessToken", async () => {
-      /**
-       * Mock FileList
-       */
-      // Mock File
-      const file = new File(["foo"], "foo.txt", {
-        type: "text/plain",
-      });
-      const file2 = new File(["this is test file"], "test.txt", {
-        type: "text/plain",
-      });
-      const input = document.createElement("input");
-      input.setAttribute("type", "file");
-      input.setAttribute("name", "file-upload");
-      input.multiple = true;
-      var test = input.files;
-      let x = Object.create(test); // Make new object that is built upon FileList
-      x[0] = file;
-      x[1] = file2;
-      console.log(x);
-      // FileList { '0': File {}, '1': File {} }
-      console.log(x[0].type);
-      // text/plain
-      console.log(x[0].name);
-      // foo.txt
-      console.log(x[1]);
-      // File {}
+  // describe("[GCS] uploadFiles VALID TEST", () => {
+  //   it("fileList(more than 2 files), bucketName are valid without accessToken", async () => {
+  //     /**
+  //      * Mock FileList
+  //      */
+  //     // Mock File
+  //     const file = new File(["foo"], "foo.txt", {
+  //       type: "text/plain",
+  //     });
+  //     const file2 = new File(["this is test file"], "test.txt", {
+  //       type: "text/plain",
+  //     });
+  //     const input = document.createElement("input");
+  //     input.setAttribute("type", "file");
+  //     input.setAttribute("name", "file-upload");
+  //     input.multiple = true;
+  //     var test = input.files;
+  //     let x = Object.create(test); // Make new object that is built upon FileList
+  //     x[0] = file;
+  //     x[1] = file2;
+  //     console.log(x);
+  //     // FileList { '0': File {}, '1': File {} }
+  //     console.log(x[0].type);
+  //     // text/plain
+  //     console.log(x[0].name);
+  //     // foo.txt
+  //     console.log(x[1]);
+  //     // File {}
 
-      /**
-       *  Mock fetch
-       */
-      const bucketName = "hogehoge";
-      const fileName = "test.txt";
+  //     /**
+  //      *  Mock fetch
+  //      */
+  //     const bucketName = "hogehoge";
+  //     const fileName = "test.txt";
 
-      const mock = mockPost(
-        `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
-      ).willResolve({
-        json: () =>
-          Promise.resolve({
-            bucket: bucketName,
-            content,
-          }),
-      });
-      expect(1).toBe(1); //FileListの作成を試したいのでダミー
-    });
-  });
+  //     const mock = mockPost(
+  //       `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
+  //     ).willResolve({
+  //       json: () =>
+  //         Promise.resolve({
+  //           bucket: bucketName,
+  //           content,
+  //         }),
+  //     });
+  //     expect(1).toBe(1); //FileListの作成を試したいのでダミー
+  //   });
+  // });
 });

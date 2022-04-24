@@ -65,10 +65,10 @@ class Stellaria {
    * @param {string} bucketName - The bucket name you will upload file to.
    * @returns {JSON} - Return JSON includes file name list of each result; success or failed.
    */
-  uploadFiles = async (fileList, bucketName) => {
+  uploadFiles = async (fileList, bucketName, failure, success) => {
     console.log("Uplad");
     if (!this.module) throw Error("This instance is not initialzed.");
-    return this.module.uploadFiles(fileList, bucketName);
+    return this.module.uploadFiles(fileList, bucketName, failure, success);
   };
 }
 
