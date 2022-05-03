@@ -41,23 +41,23 @@ class Stellaria {
   /**
    * This function provide auth page to each storage service.
    */
-  getAuth() {
+  getAuth = () => {
     console.log("Auth");
     if (!this.module) throw Error("This instance is not initialzed.");
     this.module.oauthSignIn();
-  }
+  };
 
   /**
    * This function gets the information to access to storage service from redirect URL.
    * @returns {JSON} Return value is JSON which includes the information to access to storage service.
    */
-  getAuthInfo() {
+  getAuthInfo = () => {
     console.log("Auth info + " + this.name);
     if (!this.module) throw Error("This instance is not initialzed.");
     if (this.name === "GCS") {
       return this.module.getAccessToken(location);
     }
-  }
+  };
 
   /**
    * This function uploads files you selected to storage service.
@@ -65,11 +65,11 @@ class Stellaria {
    * @param {string} bucketName - The bucket name you will upload file to.
    * @returns {JSON} - Return JSON includes file name list of each result; success or failed.
    */
-  async uploadFiles(fileList, bucketName, failure, success) {
+  uploadFiles = async (fileList, bucketName, failure, success) => {
     console.log("Uplad");
     if (!this.module) throw Error("This instance is not initialzed.");
     return this.module.uploadFiles(fileList, bucketName, failure, success);
-  }
+  };
 }
 
 export default Stellaria;
