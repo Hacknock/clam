@@ -500,6 +500,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       scope: "https://www.googleapis.com/auth/devstorage.read_only",
     };
     const gcs = new GCS(params, toolKit);
+
     it("All parameters are fine", async () => {
       // Mock File
       const file = new File(["foo"], "foo.txt", {
@@ -523,13 +524,48 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       const inst = gcs.uploadFile.bind({
         bucketName: bucketName,
         file: file,
-        success: (a) => {
-          expect(a).toString();
-          console.log("success: " + a);
+        callback: (err, fileName) => {
+          expect(err).toBeNull();
+          expect(fileName).toBe("foo.txt");
+          if (err) {
+            console.error("failure: " + fileName);
+            console.error(err);
+          } else {
+            console.log("success: " + fileName);
+          }
         },
-        failure: (a) => {
-          expect(a).toBeNull();
-          console.log("failure: " + a);
+      });
+      const event = { target: { result: "hogehoge" } };
+      await inst(event);
+    });
+
+    it("fetch is failed", async () => {
+      // Mock File
+      const file = new File(["foo"], "foo.txt", {
+        type: "text/plain",
+      });
+      /**
+       *  Mock fetch
+       */
+      const bucketName = "hogehoge";
+      const fileName = "foo.txt";
+
+      mockPost(
+        `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
+      ).willFailOnce({ error: "Not Fount" }, 404);
+
+      const inst = gcs.uploadFile.bind({
+        bucketName: bucketName,
+        file: file,
+        callback: (err, fileName) => {
+          expect(err).toBe("404 Error occurred by fetch.");
+          expect(fileName).toBe("foo.txt");
+          if (err) {
+            console.error("failure: " + fileName);
+            console.error(err);
+          } else {
+            console.log("success: " + fileName);
+          }
         },
       });
       const event = { target: { result: "hogehoge" } };
