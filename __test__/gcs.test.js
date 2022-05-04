@@ -500,7 +500,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       scope: "https://www.googleapis.com/auth/devstorage.read_only",
     };
     const gcs = new GCS(params, toolKit);
-    it("All parameters are fine.", async () => {
+    it("All parameters are fine", async () => {
       // Mock File
       const file = new File(["foo"], "foo.txt", {
         type: "text/plain",
@@ -511,7 +511,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       const bucketName = "hogehoge";
       const fileName = "foo.txt";
 
-      const mock = mockPost(
+      mockPost(
         `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
       ).willResolveOnce(
         Promise.resolve({
