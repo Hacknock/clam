@@ -571,5 +571,42 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       const event = { target: { result: "hogehoge" } };
       await inst(event);
     });
+
+    it("fetch result does not include mediaLink", async () => {
+      // Mock File
+      const file = new File(["foo"], "foo.txt", {
+        type: "text/plain",
+      });
+      /**
+       *  Mock fetch
+       */
+      const bucketName = "hogehoge";
+      const fileName = "foo.txt";
+
+      mockPost(
+        `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
+      ).willResolveOnce(
+        Promise.resolve({
+          bucket: bucketName,
+        })
+      );
+
+      const inst = gcs.uploadFile.bind({
+        bucketName: bucketName,
+        file: file,
+        callback: (err, fileName) => {
+          expect(err).toBe("No mediaLink");
+          expect(fileName).toBe("foo.txt");
+          if (err) {
+            console.error("failure: " + fileName);
+            console.error(err);
+          } else {
+            console.log("success: " + fileName);
+          }
+        },
+      });
+      const event = { target: { result: "hogehoge" } };
+      await inst(event);
+    });
   });
 });
