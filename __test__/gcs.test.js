@@ -609,4 +609,128 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       await inst(event);
     });
   });
+
+  describe("[GCS] uploadFile INVALID TEST", () => {
+    const params = {
+      clientId: "clientId",
+      redirectUrl: "http://localhost:3000",
+      scope: "https://www.googleapis.com/auth/devstorage.read_only",
+    };
+    const gcs = new GCS(params, toolKit);
+    it("event.target.result is not set", async () => {
+      // Mock File
+      const file = new File(["foo"], "foo.txt", {
+        type: "text/plain",
+      });
+      /**
+       *  Mock fetch
+       */
+      const bucketName = "hogehoge";
+      const fileName = "foo.txt";
+
+      mockPost(
+        `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
+      ).willResolveOnce(
+        Promise.resolve({
+          bucket: bucketName,
+        })
+      );
+
+      const inst = gcs.uploadFile.bind({
+        bucketName: bucketName,
+        file: file,
+        callback: (err, fileName) => {
+          expect(err).toBe(
+            "The argument is empty or the event does not include 'event.target.result.'"
+          );
+          expect(fileName).toBe("foo.txt");
+          if (err) {
+            console.error("failure: " + fileName);
+            console.error(err);
+          } else {
+            console.log("success: " + fileName);
+          }
+        },
+      });
+      const event = { target: "hogehoge" };
+      await inst(event);
+    });
+
+    it("event.target is not set", async () => {
+      // Mock File
+      const file = new File(["foo"], "foo.txt", {
+        type: "text/plain",
+      });
+      /**
+       *  Mock fetch
+       */
+      const bucketName = "hogehoge";
+      const fileName = "foo.txt";
+
+      mockPost(
+        `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
+      ).willResolveOnce(
+        Promise.resolve({
+          bucket: bucketName,
+        })
+      );
+
+      const inst = gcs.uploadFile.bind({
+        bucketName: bucketName,
+        file: file,
+        callback: (err, fileName) => {
+          expect(err).toBe(
+            "The argument is empty or the event does not include 'event.target.result.'"
+          );
+          expect(fileName).toBe("foo.txt");
+          if (err) {
+            console.error("failure: " + fileName);
+            console.error(err);
+          } else {
+            console.log("success: " + fileName);
+          }
+        },
+      });
+      const event = "hogehoge";
+      await inst(event);
+    });
+
+    it("event is not set", async () => {
+      // Mock File
+      const file = new File(["foo"], "foo.txt", {
+        type: "text/plain",
+      });
+      /**
+       *  Mock fetch
+       */
+      const bucketName = "hogehoge";
+      const fileName = "foo.txt";
+
+      mockPost(
+        `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
+      ).willResolveOnce(
+        Promise.resolve({
+          bucket: bucketName,
+        })
+      );
+
+      const inst = gcs.uploadFile.bind({
+        bucketName: bucketName,
+        file: file,
+        callback: (err, fileName) => {
+          expect(err).toBe(
+            "The argument is empty or the event does not include 'event.target.result.'"
+          );
+          expect(fileName).toBe("foo.txt");
+          if (err) {
+            console.error("failure: " + fileName);
+            console.error(err);
+          } else {
+            console.log("success: " + fileName);
+          }
+        },
+      });
+      await inst();
+    });
+  });
 });
