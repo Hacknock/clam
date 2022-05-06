@@ -769,5 +769,42 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       const event = { target: { result: "hogehoge" } };
       await inst(event);
     });
+
+    it("this.file is not set", async () => {
+      // Mock File
+      const file = new File(["foo"], "foo.txt", {
+        type: "text/plain",
+      });
+      /**
+       *  Mock fetch
+       */
+      const bucketName = "hogehoge";
+      const fileName = "foo.txt";
+
+      mockPost(
+        `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
+      ).willResolveOnce(
+        Promise.resolve({
+          bucket: bucketName,
+          mediaLink: "hogehoge",
+        })
+      );
+
+      const inst = gcs.uploadFile.bind({
+        bucketName: bucketName,
+        callback: (err, fileName) => {
+          expect(err).toBe("file is not set. Please bind file.");
+          expect(fileName).toBeNull();
+          if (err) {
+            console.error("failure: " + fileName);
+            console.error(err);
+          } else {
+            console.log("success: " + fileName);
+          }
+        },
+      });
+      const event = { target: { result: "hogehoge" } };
+      await inst(event);
+    });
   });
 });
