@@ -6,7 +6,7 @@ import GCS from "../lib/gcs.js";
 import ToolKit from "../lib/toolkit.js";
 const toolKit = new ToolKit();
 import crypto from "crypto";
-import { mockPost } from "vi-fetch";
+import { mockFetch, mockPost } from "vi-fetch";
 
 ("use strict");
 
@@ -511,8 +511,9 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
        */
       const bucketName = "hogehoge";
       const fileName = "foo.txt";
+      const token = "j30f23jf023f";
 
-      mockPost(
+      const mock = mockPost(
         `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
       ).willResolveOnce(
         Promise.resolve({
@@ -524,6 +525,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       const inst = gcs.uploadFile.bind({
         bucketName: bucketName,
         file: file,
+        token: token,
         callback: (err, fileName) => {
           expect(err).toBeNull();
           expect(fileName).toBe("foo.txt");
@@ -537,6 +539,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       });
       const event = { target: { result: "hogehoge" } };
       await inst(event);
+      mock.clear();
     });
 
     it("fetch is failed", async () => {
@@ -549,14 +552,16 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
        */
       const bucketName = "hogehoge";
       const fileName = "foo.txt";
+      const token = "j30f23jf023f";
 
-      mockPost(
+      const mock = mockPost(
         `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
       ).willFailOnce({ error: "Not Fount" }, 404);
 
       const inst = gcs.uploadFile.bind({
         bucketName: bucketName,
         file: file,
+        token: token,
         callback: (err, fileName) => {
           expect(err).toBe("404 Error occurred by fetch.");
           expect(fileName).toBe("foo.txt");
@@ -570,6 +575,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       });
       const event = { target: { result: "hogehoge" } };
       await inst(event);
+      mock.clear();
     });
 
     it("fetch result does not include mediaLink", async () => {
@@ -582,8 +588,9 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
        */
       const bucketName = "hogehoge";
       const fileName = "foo.txt";
+      const token = "j30f23jf023f";
 
-      mockPost(
+      const mock = mockPost(
         `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
       ).willResolveOnce(
         Promise.resolve({
@@ -594,6 +601,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       const inst = gcs.uploadFile.bind({
         bucketName: bucketName,
         file: file,
+        token: token,
         callback: (err, fileName) => {
           expect(err).toBe("No mediaLink");
           expect(fileName).toBe("foo.txt");
@@ -607,6 +615,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       });
       const event = { target: { result: "hogehoge" } };
       await inst(event);
+      mock.clear();
     });
   });
 
@@ -627,8 +636,9 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
        */
       const bucketName = "hogehoge";
       const fileName = "foo.txt";
+      const token = "j30f23jf023f";
 
-      mockPost(
+      const mock = mockPost(
         `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
       ).willResolveOnce(
         Promise.resolve({
@@ -639,6 +649,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       const inst = gcs.uploadFile.bind({
         bucketName: bucketName,
         file: file,
+        token: token,
         callback: (err, fileName) => {
           expect(err).toBe(
             "The argument is empty or the event does not include 'event.target.result.'"
@@ -654,6 +665,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       });
       const event = { target: "hogehoge" };
       await inst(event);
+      mock.clear();
     });
 
     it("event.target is not set", async () => {
@@ -666,8 +678,9 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
        */
       const bucketName = "hogehoge";
       const fileName = "foo.txt";
+      const token = "j30f23jf023f";
 
-      mockPost(
+      const mock = mockPost(
         `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
       ).willResolveOnce(
         Promise.resolve({
@@ -678,6 +691,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       const inst = gcs.uploadFile.bind({
         bucketName: bucketName,
         file: file,
+        token: token,
         callback: (err, fileName) => {
           expect(err).toBe(
             "The argument is empty or the event does not include 'event.target.result.'"
@@ -693,6 +707,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       });
       const event = "hogehoge";
       await inst(event);
+      mock.clear();
     });
 
     it("event is not set", async () => {
@@ -705,8 +720,9 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
        */
       const bucketName = "hogehoge";
       const fileName = "foo.txt";
+      const token = "j30f23jf023f";
 
-      mockPost(
+      const mock = mockPost(
         `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
       ).willResolveOnce(
         Promise.resolve({
@@ -717,6 +733,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       const inst = gcs.uploadFile.bind({
         bucketName: bucketName,
         file: file,
+        token: token,
         callback: (err, fileName) => {
           expect(err).toBe(
             "The argument is empty or the event does not include 'event.target.result.'"
@@ -731,6 +748,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
         },
       });
       await inst();
+      mock.clear();
     });
 
     it("this.bucketName is not set", async () => {
@@ -743,8 +761,9 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
        */
       const bucketName = "hogehoge";
       const fileName = "foo.txt";
+      const token = "j30f23jf023f";
 
-      mockPost(
+      const mock = mockPost(
         `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
       ).willResolveOnce(
         Promise.resolve({
@@ -755,6 +774,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
 
       const inst = gcs.uploadFile.bind({
         file: file,
+        token: token,
         callback: (err, fileName) => {
           expect(err).toBe("bucketName is not binded. Please set bucketName.");
           expect(fileName).toBe("foo.txt");
@@ -768,20 +788,18 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       });
       const event = { target: { result: "hogehoge" } };
       await inst(event);
+      mock.clear();
     });
 
     it("this.file is not set", async () => {
-      // Mock File
-      const file = new File(["foo"], "foo.txt", {
-        type: "text/plain",
-      });
       /**
        *  Mock fetch
        */
       const bucketName = "hogehoge";
       const fileName = "foo.txt";
+      const token = "j30f23jf023f";
 
-      mockPost(
+      const mock = mockPost(
         `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
       ).willResolveOnce(
         Promise.resolve({
@@ -792,6 +810,7 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
 
       const inst = gcs.uploadFile.bind({
         bucketName: bucketName,
+        token: token,
         callback: (err, fileName) => {
           expect(err).toBe("file is not set. Please bind file.");
           expect(fileName).toBeNull();
@@ -805,6 +824,46 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       });
       const event = { target: { result: "hogehoge" } };
       await inst(event);
+      mock.clear();
+    });
+
+    it("this.token is not set", async () => {
+      // Mock File
+      const file = new File(["foo"], "foo.txt", {
+        type: "text/plain",
+      });
+      /**
+       *  Mock fetch
+       */
+      const bucketName = "hogehoge";
+      const fileName = "foo.txt";
+
+      const mock = mockPost(
+        `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
+      ).willResolveOnce(
+        Promise.resolve({
+          bucket: bucketName,
+          mediaLink: "hogehoge",
+        })
+      );
+
+      const inst = gcs.uploadFile.bind({
+        bucketName: bucketName,
+        file: file,
+        callback: (err, fileName) => {
+          expect(err).toBe("token is not set. Please bind token");
+          expect(fileName).toBe("foo.txt");
+          if (err) {
+            console.error("failure: " + fileName);
+            console.error(err);
+          } else {
+            console.log("success: " + fileName);
+          }
+        },
+      });
+      const event = { target: { result: "hogehoge" } };
+      await inst(event);
+      mock.clear();
     });
   });
 });
