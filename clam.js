@@ -1,5 +1,5 @@
 /**
- *  stellaria
+ *  clam
  *  Copyright(c) 2022 Hacknock
  *  Author: Akira Kashihara <akira.kashihara@hotmail.com>
  *  MIT Licensed, The detail is on README.md and LICENSE.
@@ -10,9 +10,9 @@ import ToolKit from "./lib/toolkit.js";
 
 ("use strict");
 
-class Stellaria {
+class Clam {
   /**
-   * Stellaria class is an entry point to your application or service.
+   * Clam class is an entry point to your application or service.
    * @param {string} [name="GCS"] - Put "GCS" if you use Google Cloud Storage
    * @param {JSON} params - Setting parameter using authorization. This must include 'clientId', 'redirectUrl' and 'scope'
    * @param {string} params.clientId - You get client ID from Google Cloud Platform API / Credentials.
@@ -21,7 +21,7 @@ class Stellaria {
    */
   constructor(params, name = "GCS") {
     this.name = name;
-    console.log("make Stellaria instance mode is " + name);
+    console.log("make Clam instance mode is " + name);
     if (!params) throw Error("You must set the first argument.");
     if (name === "GCS") {
       if (params.clientId && params.redirectUrl && params.scope) {
@@ -72,4 +72,4 @@ class Stellaria {
   };
 }
 
-export default Stellaria;
+export default Clam;
