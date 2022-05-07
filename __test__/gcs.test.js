@@ -1035,175 +1035,175 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
     });
   });
 
-  // describe("[GCS] uploadFiles VALID TEST", () => {
-  //   const params = {
-  //     clientId: "clientId",
-  //     redirectUrl: "http://localhost:3000",
-  //     scope: "https://www.googleapis.com/auth/devstorage.read_only",
-  //   };
-  //   const gcs = new GCS(params, toolKit);
-  //   it("fileList(more than 2 files), bucketName are valid without accessToken", () => {
-  //     const bucketName = "hogehoge";
+  describe("[GCS] uploadFiles VALID TEST", () => {
+    const params = {
+      clientId: "clientId",
+      redirectUrl: "http://localhost:3000",
+      scope: "https://www.googleapis.com/auth/devstorage.read_only",
+    };
+    const gcs = new GCS(params, toolKit);
+    it("fileList(more than 2 files), bucketName are valid without accessToken", () => {
+      const bucketName = "hogehoge";
 
-  //     //location mock
-  //     global.window = Object.create(window);
-  //     const url = "http://localhost";
-  //     const dummyToken = crypto
-  //       .randomBytes(160)
-  //       .toString("hex")
-  //       .substring(0, 160);
-  //     const dummyJoint = crypto.randomBytes(4).toString("hex").substring(0, 4);
-  //     Object.defineProperty(window, "location", {
-  //       value: {
-  //         href: `${url}/#state=pass-through%20value&access_token=${dummyJoint}.${dummyToken}&token_type=Bearer&expires_in=1000&scope=https://www.googleapis.com/auth/devstorage.read_only`,
-  //         hash: `#state=pass-through%20value&access_token=${dummyJoint}.${dummyToken}&token_type=Bearer&expires_in=1000&scope=https://www.googleapis.com/auth/devstorage.read_only`,
-  //         configurable: true,
-  //       },
-  //       configurable: true,
-  //     });
-  //     const result = gcs.getAccessToken(window.location);
+      //location mock
+      global.window = Object.create(window);
+      const url = "http://localhost";
+      const dummyToken = crypto
+        .randomBytes(160)
+        .toString("hex")
+        .substring(0, 160);
+      const dummyJoint = crypto.randomBytes(4).toString("hex").substring(0, 4);
+      Object.defineProperty(window, "location", {
+        value: {
+          href: `${url}/#state=pass-through%20value&access_token=${dummyJoint}.${dummyToken}&token_type=Bearer&expires_in=1000&scope=https://www.googleapis.com/auth/devstorage.read_only`,
+          hash: `#state=pass-through%20value&access_token=${dummyJoint}.${dummyToken}&token_type=Bearer&expires_in=1000&scope=https://www.googleapis.com/auth/devstorage.read_only`,
+          configurable: true,
+        },
+        configurable: true,
+      });
+      const result = gcs.getAccessToken(window.location);
 
-  //     /**
-  //      * FileList mock
-  //      */
-  //     const file = new File(["foo"], "foo.txt", {
-  //       type: "text/plain",
-  //     });
-  //     const file2 = new File(["this is test file"], "test.txt", {
-  //       type: "text/plain",
-  //     });
-  //     const input = document.createElement("input");
-  //     input.setAttribute("type", "file");
-  //     input.setAttribute("name", "file-upload");
-  //     input.multiple = true;
-  //     let mockFileList = Object.create(input.files);
-  //     mockFileList[0] = file;
-  //     mockFileList[1] = file2;
-  //     Object.defineProperty(mockFileList, "length", { value: 2 });
+      /**
+       * FileList mock
+       */
+      const file = new File(["foo"], "foo.txt", {
+        type: "text/plain",
+      });
+      const file2 = new File(["this is test file"], "test.txt", {
+        type: "text/plain",
+      });
+      const input = document.createElement("input");
+      input.setAttribute("type", "file");
+      input.setAttribute("name", "file-upload");
+      input.multiple = true;
+      let mockFileList = Object.create(input.files);
+      mockFileList[0] = file;
+      mockFileList[1] = file2;
+      Object.defineProperty(mockFileList, "length", { value: 2 });
 
-  //     const res = gcs.uploadFiles(mockFileList, bucketName, (err, fileName) => {
-  //       if (err) console.error(err);
-  //       else console.log(fileName);
-  //     });
-  //     expect(res).toBe(0);
-  //   });
+      const res = gcs.uploadFiles(mockFileList, bucketName, (err, fileName) => {
+        if (err) console.error(err);
+        else console.log(fileName);
+      });
+      expect(res).toBe(0);
+    });
 
-  //   it("fileList(more than 2 files), bucketName and accessToken are valid", () => {
-  //     const bucketName = "hogehoge";
+    it("fileList(more than 2 files), bucketName and accessToken are valid", () => {
+      const bucketName = "hogehoge";
 
-  //     const dummyToken = crypto
-  //       .randomBytes(160)
-  //       .toString("hex")
-  //       .substring(0, 160);
-  //     const dummyJoint = crypto.randomBytes(4).toString("hex").substring(0, 4);
+      const dummyToken = crypto
+        .randomBytes(160)
+        .toString("hex")
+        .substring(0, 160);
+      const dummyJoint = crypto.randomBytes(4).toString("hex").substring(0, 4);
 
-  //     /**
-  //      * FileList mock
-  //      */
-  //     const file = new File(["foo"], "foo.txt", {
-  //       type: "text/plain",
-  //     });
-  //     const file2 = new File(["this is test file"], "test.txt", {
-  //       type: "text/plain",
-  //     });
-  //     const input = document.createElement("input");
-  //     input.setAttribute("type", "file");
-  //     input.setAttribute("name", "file-upload");
-  //     input.multiple = true;
-  //     let mockFileList = Object.create(input.files);
-  //     mockFileList[0] = file;
-  //     mockFileList[1] = file2;
-  //     Object.defineProperty(mockFileList, "length", { value: 2 });
+      /**
+       * FileList mock
+       */
+      const file = new File(["foo"], "foo.txt", {
+        type: "text/plain",
+      });
+      const file2 = new File(["this is test file"], "test.txt", {
+        type: "text/plain",
+      });
+      const input = document.createElement("input");
+      input.setAttribute("type", "file");
+      input.setAttribute("name", "file-upload");
+      input.multiple = true;
+      let mockFileList = Object.create(input.files);
+      mockFileList[0] = file;
+      mockFileList[1] = file2;
+      Object.defineProperty(mockFileList, "length", { value: 2 });
 
-  //     const res = gcs.uploadFiles(
-  //       mockFileList,
-  //       bucketName,
-  //       (err, fileName) => {
-  //         if (err) console.error(err);
-  //         else console.log(fileName);
-  //       },
-  //       `${dummyJoint}.${dummyToken}`
-  //     );
-  //     expect(res).toBe(0);
-  //   });
+      const res = gcs.uploadFiles(
+        mockFileList,
+        bucketName,
+        (err, fileName) => {
+          if (err) console.error(err);
+          else console.log(fileName);
+        },
+        `${dummyJoint}.${dummyToken}`
+      );
+      expect(res).toBe(0);
+    });
 
-  //   it("fileList(only one file), bucketName are valid without accessToken", () => {
-  //     const bucketName = "hogehoge";
+    it("fileList(only one file), bucketName are valid without accessToken", () => {
+      const bucketName = "hogehoge";
 
-  //     //location mock
-  //     global.window = Object.create(window);
-  //     const url = "http://localhost";
-  //     const dummyToken = crypto
-  //       .randomBytes(160)
-  //       .toString("hex")
-  //       .substring(0, 160);
-  //     const dummyJoint = crypto.randomBytes(4).toString("hex").substring(0, 4);
-  //     Object.defineProperty(window, "location", {
-  //       value: {
-  //         href: `${url}/#state=pass-through%20value&access_token=${dummyJoint}.${dummyToken}&token_type=Bearer&expires_in=1000&scope=https://www.googleapis.com/auth/devstorage.read_only`,
-  //         hash: `#state=pass-through%20value&access_token=${dummyJoint}.${dummyToken}&token_type=Bearer&expires_in=1000&scope=https://www.googleapis.com/auth/devstorage.read_only`,
-  //         configurable: true,
-  //       },
-  //       configurable: true,
-  //     });
-  //     const result = gcs.getAccessToken(window.location);
+      //location mock
+      global.window = Object.create(window);
+      const url = "http://localhost";
+      const dummyToken = crypto
+        .randomBytes(160)
+        .toString("hex")
+        .substring(0, 160);
+      const dummyJoint = crypto.randomBytes(4).toString("hex").substring(0, 4);
+      Object.defineProperty(window, "location", {
+        value: {
+          href: `${url}/#state=pass-through%20value&access_token=${dummyJoint}.${dummyToken}&token_type=Bearer&expires_in=1000&scope=https://www.googleapis.com/auth/devstorage.read_only`,
+          hash: `#state=pass-through%20value&access_token=${dummyJoint}.${dummyToken}&token_type=Bearer&expires_in=1000&scope=https://www.googleapis.com/auth/devstorage.read_only`,
+          configurable: true,
+        },
+        configurable: true,
+      });
+      const result = gcs.getAccessToken(window.location);
 
-  //     /**
-  //      * FileList mock
-  //      */
-  //     const file = new File(["foo"], "foo.txt", {
-  //       type: "text/plain",
-  //     });
-  //     const input = document.createElement("input");
-  //     input.setAttribute("type", "file");
-  //     input.setAttribute("name", "file-upload");
-  //     input.multiple = true;
-  //     let mockFileList = Object.create(input.files);
-  //     mockFileList[0] = file;
-  //     Object.defineProperty(mockFileList, "length", { value: 1 });
+      /**
+       * FileList mock
+       */
+      const file = new File(["foo"], "foo.txt", {
+        type: "text/plain",
+      });
+      const input = document.createElement("input");
+      input.setAttribute("type", "file");
+      input.setAttribute("name", "file-upload");
+      input.multiple = true;
+      let mockFileList = Object.create(input.files);
+      mockFileList[0] = file;
+      Object.defineProperty(mockFileList, "length", { value: 1 });
 
-  //     const res = gcs.uploadFiles(mockFileList, bucketName, (err, fileName) => {
-  //       if (err) console.error(err);
-  //       else console.log(fileName);
-  //     });
-  //     expect(res).toBe(0);
-  //   });
+      const res = gcs.uploadFiles(mockFileList, bucketName, (err, fileName) => {
+        if (err) console.error(err);
+        else console.log(fileName);
+      });
+      expect(res).toBe(0);
+    });
 
-  //   it("fileList(only one file), bucketName and accessToken are valid", () => {
-  //     const bucketName = "hogehoge";
+    it("fileList(only one file), bucketName and accessToken are valid", () => {
+      const bucketName = "hogehoge";
 
-  //     const dummyToken = crypto
-  //       .randomBytes(160)
-  //       .toString("hex")
-  //       .substring(0, 160);
-  //     const dummyJoint = crypto.randomBytes(4).toString("hex").substring(0, 4);
+      const dummyToken = crypto
+        .randomBytes(160)
+        .toString("hex")
+        .substring(0, 160);
+      const dummyJoint = crypto.randomBytes(4).toString("hex").substring(0, 4);
 
-  //     /**
-  //      * FileList mock
-  //      */
-  //     const file = new File(["foo"], "foo.txt", {
-  //       type: "text/plain",
-  //     });
-  //     const input = document.createElement("input");
-  //     input.setAttribute("type", "file");
-  //     input.setAttribute("name", "file-upload");
-  //     input.multiple = true;
-  //     let mockFileList = Object.create(input.files);
-  //     mockFileList[0] = file;
-  //     Object.defineProperty(mockFileList, "length", { value: 1 });
+      /**
+       * FileList mock
+       */
+      const file = new File(["foo"], "foo.txt", {
+        type: "text/plain",
+      });
+      const input = document.createElement("input");
+      input.setAttribute("type", "file");
+      input.setAttribute("name", "file-upload");
+      input.multiple = true;
+      let mockFileList = Object.create(input.files);
+      mockFileList[0] = file;
+      Object.defineProperty(mockFileList, "length", { value: 1 });
 
-  //     const res = gcs.uploadFiles(
-  //       mockFileList,
-  //       bucketName,
-  //       (err, fileName) => {
-  //         if (err) console.error(err);
-  //         else console.log(fileName);
-  //       },
-  //       `${dummyJoint}.${dummyToken}`
-  //     );
-  //     expect(res).toBe(0);
-  //   });
-  // });
+      const res = gcs.uploadFiles(
+        mockFileList,
+        bucketName,
+        (err, fileName) => {
+          if (err) console.error(err);
+          else console.log(fileName);
+        },
+        `${dummyJoint}.${dummyToken}`
+      );
+      expect(res).toBe(0);
+    });
+  });
 
   // describe("[GCS] uploadFiles INVALID TEST", () => {
   //   const params = {
