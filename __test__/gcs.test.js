@@ -1041,6 +1041,12 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       redirectUrl: "http://localhost:3000",
       scope: "https://www.googleapis.com/auth/devstorage.read_only",
     };
+    /**
+     * Mock FileReader
+     */
+    const spyFileReader = vi
+      .spyOn(FileReader.prototype, "addEventListener")
+      .mockImplementation(() => {});
     const gcs = new GCS(params, toolKit);
     it("fileList(more than 2 files), bucketName are valid without accessToken", () => {
       const bucketName = "hogehoge";
@@ -1080,13 +1086,6 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       mockFileList[0] = file;
       mockFileList[1] = file2;
       Object.defineProperty(mockFileList, "length", { value: 2 });
-
-      /**
-       * Mock FileReader
-       */
-      const spyFileReader = vi
-        .spyOn(FileReader.prototype, "addEventListener")
-        .mockImplementation(() => {});
 
       const res = gcs.uploadFiles(mockFileList, bucketName, (err, fileName) => {
         if (err) console.error(err);
