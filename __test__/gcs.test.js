@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 
 import "vi-fetch/setup";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import GCS from "../lib/gcs.js";
 import ToolKit from "../lib/toolkit.js";
 const toolKit = new ToolKit();
@@ -1080,6 +1080,13 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       mockFileList[0] = file;
       mockFileList[1] = file2;
       Object.defineProperty(mockFileList, "length", { value: 2 });
+
+      /**
+       * Mock FileReader
+       */
+      const spyFileReader = vi
+        .spyOn(FileReader.prototype, "addEventListener")
+        .mockImplementation(() => {});
 
       const res = gcs.uploadFiles(mockFileList, bucketName, (err, fileName) => {
         if (err) console.error(err);
