@@ -865,5 +865,245 @@ describe("[GCS] CONSTRUCTOR INVALID TEST", () => {
       await inst(event);
       mock.clear();
     });
+
+    it('fileName includes "&"', async () => {
+      const fileName = "fo&o.txt";
+
+      // Mock File
+      const file = new File(["foo"], fileName, {
+        type: "text/plain",
+      });
+      /**
+       *  Mock fetch
+       */
+      const bucketName = "hogehoge";
+      const token = "j30f23jf023f";
+
+      const mock = mockPost(
+        `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
+      ).willResolveOnce(
+        Promise.resolve({
+          bucket: bucketName,
+          mediaLink: "hogehoge",
+        })
+      );
+
+      const inst = gcs.uploadFile.bind({
+        bucketName: bucketName,
+        file: file,
+        token: token,
+        callback: (err, fileName) => {
+          expect(err).toBe("The file must not include '=', '&', '?' and '/'.");
+          expect(fileName).toBe(fileName);
+          if (err) {
+            console.error("failure: " + fileName);
+            console.error(err);
+          } else {
+            console.log("success: " + fileName);
+          }
+        },
+      });
+      const event = { target: { result: "hogehoge" } };
+      await inst(event);
+      mock.clear();
+    });
+
+    it('fileName includes "="', async () => {
+      const fileName = "f=oo.txt";
+
+      // Mock File
+      const file = new File(["foo"], fileName, {
+        type: "text/plain",
+      });
+      /**
+       *  Mock fetch
+       */
+      const bucketName = "hogehoge";
+      const token = "j30f23jf023f";
+
+      const mock = mockPost(
+        `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
+      ).willResolveOnce(
+        Promise.resolve({
+          bucket: bucketName,
+          mediaLink: "hogehoge",
+        })
+      );
+
+      const inst = gcs.uploadFile.bind({
+        bucketName: bucketName,
+        file: file,
+        token: token,
+        callback: (err, fileName) => {
+          expect(err).toBe("The file must not include '=', '&', '?' and '/'.");
+          expect(fileName).toBe(fileName);
+          if (err) {
+            console.error("failure: " + fileName);
+            console.error(err);
+          } else {
+            console.log("success: " + fileName);
+          }
+        },
+      });
+      const event = { target: { result: "hogehoge" } };
+      await inst(event);
+      mock.clear();
+    });
+
+    it('fileName includes "?"', async () => {
+      const fileName = "?foo.txt";
+
+      // Mock File
+      const file = new File(["foo"], fileName, {
+        type: "text/plain",
+      });
+      /**
+       *  Mock fetch
+       */
+      const bucketName = "hogehoge";
+      const token = "j30f23jf023f";
+
+      const mock = mockPost(
+        `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
+      ).willResolveOnce(
+        Promise.resolve({
+          bucket: bucketName,
+          mediaLink: "hogehoge",
+        })
+      );
+
+      const inst = gcs.uploadFile.bind({
+        bucketName: bucketName,
+        file: file,
+        token: token,
+        callback: (err, fileName) => {
+          expect(err).toBe("The file must not include '=', '&', '?' and '/'.");
+          expect(fileName).toBe(fileName);
+          if (err) {
+            console.error("failure: " + fileName);
+            console.error(err);
+          } else {
+            console.log("success: " + fileName);
+          }
+        },
+      });
+      const event = { target: { result: "hogehoge" } };
+      await inst(event);
+      mock.clear();
+    });
+
+    it('fileName includes "/"', async () => {
+      const fileName = "foo/.txt";
+
+      // Mock File
+      const file = new File(["foo"], fileName, {
+        type: "text/plain",
+      });
+      /**
+       *  Mock fetch
+       */
+      const bucketName = "hogehoge";
+      const token = "j30f23jf023f";
+
+      const mock = mockPost(
+        `https://storage.googleapis.com/upload/storage/v1/b/${bucketName}/o?uploadType=media&name=${fileName}`
+      ).willResolveOnce(
+        Promise.resolve({
+          bucket: bucketName,
+          mediaLink: "hogehoge",
+        })
+      );
+
+      const inst = gcs.uploadFile.bind({
+        bucketName: bucketName,
+        file: file,
+        token: token,
+        callback: (err, fileName) => {
+          expect(err).toBe("The file must not include '=', '&', '?' and '/'.");
+          expect(fileName).toBe(fileName);
+          if (err) {
+            console.error("failure: " + fileName);
+            console.error(err);
+          } else {
+            console.log("success: " + fileName);
+          }
+        },
+      });
+      const event = { target: { result: "hogehoge" } };
+      await inst(event);
+      mock.clear();
+    });
   });
+
+  // describe("[GCS] uploadFiles VALID TEST", () => {
+  //   it("fileList(more than 2 files), bucketName are valid without accessToken", () => {
+  //     expect(1).toBe(1);
+  //   });
+
+  //   it("fileList(more than 2 files), bucketName and accessToken are valid", () => {
+  //     expect(1).toBe(1);
+  //   });
+
+  //   it("fileList(only one file), bucketName are valid without accessToken", () => {
+  //     expect(1).toBe(1);
+  //   });
+
+  //   it("fileList(only one file), bucketName and accessToken are valid", () => {
+  //     expect(1).toBe(1);
+  //   });
+  // });
+
+  // describe("[GCS] uploadFiles INVALID TEST", () => {
+  //   it("The first argument is not FileList (number)", () => {
+  //     expect(1).toBe(1);
+  //   });
+
+  //   it("The first argument is not FileList (Boolean)", () => {
+  //     expect(1).toBe(1);
+  //   });
+
+  //   it("The first argument is not FileList (undefined)", () => {
+  //     expect(1).toBe(1);
+  //   });
+
+  //   it("The first argument is not FileList (String)", () => {
+  //     expect(1).toBe(1);
+  //   });
+
+  //   it("The first argument is not FileList (BigInt)", () => {
+  //     expect(1).toBe(1);
+  //   });
+
+  //   it("The first argument is not FileList (Symbol)", () => {
+  //     expect(1).toBe(1);
+  //   });
+
+  //   it("The first argument is not FileList (Object)", () => {
+  //     expect(1).toBe(1);
+  //   });
+
+  //   it("The second argument is not string (number)", () => {
+  //     expect(1).toBe(1);
+  //   });
+
+  //   it("The second argument is not string (Boolean)", () => {
+  //     expect(1).toBe(1);
+  //   });
+
+  //   it("The second argument is not string (undefined)", () => {
+  //     expect(1).toBe(1);
+  //   });
+
+  //   it("The second argument is not string (BigInt)", () => {
+  //     expect(1).toBe(1);
+  //   });
+
+  //   it("The second argument is not string (Symbol)", () => {
+  //     expect(1).toBe(1);
+  //   });
+
+  //   it("The second argument is not string (Object)", () => {
+  //     expect(1).toBe(1);
+  //   });
+  // });
 });
