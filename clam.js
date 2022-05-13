@@ -37,7 +37,11 @@ class Clam {
   setCred = (params) => {
     if (!params) throw Error("You must set the first argument.");
     if (params.clientId && params.redirectUrl && params.scope) {
-      this.module.setCred(params);
+      try {
+        this.module.setCred(params);
+      } catch (err) {
+        throw err;
+      }
     } else {
       throw Error(
         "The first argument is invalid. You must set 'clientId', 'redirectUrl' and 'scope'."
