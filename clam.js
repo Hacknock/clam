@@ -14,9 +14,6 @@ class Clam {
   /**
    * Clam class is an entry point to your application or service.
    * @param {string} [name="GCS"] - Put "GCS" if you use Google Cloud Storage
-   * @param {string} params.clientId - You get client ID from Google Cloud Platform API / Credentials.
-   * @param {string} params.redirectUrl - Redirect URL. It will get autorized information from Google.
-   * @param {string} params.scope - Scope is access permission level. Please refer to https://developers.google.com/identity/protocols/oauth2/scopes
    */
   constructor(name = "GCS") {
     this.name = name;
@@ -33,6 +30,9 @@ class Clam {
   /**
    * setCred is a method to set the credential information.
    * @param {JSON} params - Setting parameter using authorization. This must include 'clientId', 'redirectUrl' and 'scope'
+   * @param {string} params.clientId - You get client ID from Google Cloud Platform API / Credentials.
+   * @param {string} params.redirectUrl - Redirect URL. It will get autorized information from Google.
+   * @param {string} params.scope - Scope is access permission level. Please refer to https://developers.google.com/identity/protocols/oauth2/scopes
    */
   setCred = (params) => {
     if (!params) throw Error("You must set the first argument.");
@@ -74,6 +74,7 @@ class Clam {
    * This function uploads files you selected to storage service.
    * @param {Object} fileList - fileList is from <input type="file" multiple>
    * @param {string} bucketName - The bucket name you will upload file to.
+   * @param {() => void} callback - The callback function. 1st argument is an error. 2nd argument is file name.
    * @returns {JSON} - Return JSON includes file name list of each result; success or failed.
    */
   uploadFiles = async (fileList, bucketName, callback) => {

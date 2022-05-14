@@ -215,20 +215,6 @@ describe("[GCS] setCred INVALID TEST", () => {
     );
   });
 
-  it("Invalid input parameter, params.redirectUrl is String(not URL)", () => {
-    const params = {
-      clientId: "clientId",
-      redirectUrl: "http://hogehoge",
-      scope: "https://www.googleapis.com/auth/devstorage.read_only",
-    };
-
-    expect(() => {
-      gcs.setCred(params);
-    }).toThrow(
-      /^params.redirectUrl is invalid value. You must set string value which is an URL.$/
-    );
-  });
-
   it("Invalid input parameter, params.redirectUrl is Object", () => {
     const params = {
       clientId: "clientId",

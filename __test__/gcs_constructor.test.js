@@ -9,7 +9,7 @@ const toolKit = new ToolKit();
 ("use strict");
 
 describe("[GCS] CONSTRUCTOR VALID TEST", () => {
-  it("Assumed valid parameter", () => {
+  it("Assumed valid parameter, Check instance variables", () => {
     const params = {
       clientId: "clientId",
       redirectUrl: "http://localhost:3000",
