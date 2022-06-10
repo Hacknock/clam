@@ -29,8 +29,16 @@ describe("[GCS] getAccessToken VALID TEST", () => {
     const dummyJoint = crypto.randomBytes(4).toString("hex").substring(0, 4);
     Object.defineProperty(window, "location", {
       value: {
-        href: `${url}/#state=pass-through%20value&access_token=${dummyJoint}.${dummyToken}&token_type=Bearer&expires_in=1000&scope=https://www.googleapis.com/auth/devstorage.read_only`,
-        hash: `#state=pass-through%20value&access_token=${dummyJoint}.${dummyToken}&token_type=Bearer&expires_in=1000&scope=https://www.googleapis.com/auth/devstorage.read_only`,
+        href: `${url}/#state=pass-through%20value
+        &access_token=${dummyJoint}.${dummyToken}
+        &token_type=Bearer
+        &expires_in=1000
+        &scope=https://www.googleapis.com/auth/devstorage.read_only`,
+        hash: `#state=pass-through%20value
+        &access_token=${dummyJoint}.${dummyToken}
+        &token_type=Bearer
+        &expires_in=1000
+        &scope=https://www.googleapis.com/auth/devstorage.read_only`,
         configurable: true,
       },
       configurable: true,
