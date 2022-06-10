@@ -43,7 +43,7 @@ describe("[GCS] uploadFiles VALID TEST", () => {
       },
       configurable: true,
     });
-    const result = gcs.getAccessToken(window.location);
+    const actual = gcs.getAccessToken(window.location);
 
     /**
      * FileList mock
@@ -128,7 +128,7 @@ describe("[GCS] uploadFiles VALID TEST", () => {
       },
       configurable: true,
     });
-    const result = gcs.getAccessToken(window.location);
+    const actual = gcs.getAccessToken(window.location);
 
     /**
      * FileList mock
@@ -221,7 +221,7 @@ describe("[GCS] uploadFiles INVALID TEST", () => {
       },
       configurable: true,
     });
-    const result = gcs.getAccessToken(window.location);
+    const actual = gcs.getAccessToken(window.location);
 
     /**
      * FileList mock
@@ -265,7 +265,7 @@ describe("[GCS] uploadFiles INVALID TEST", () => {
       },
       configurable: true,
     });
-    const result = gcs.getAccessToken(window.location);
+    const actual = gcs.getAccessToken(window.location);
 
     /**
      * FileList mock
@@ -309,7 +309,7 @@ describe("[GCS] uploadFiles INVALID TEST", () => {
       },
       configurable: true,
     });
-    const result = gcs.getAccessToken(window.location);
+    const actual = gcs.getAccessToken(window.location);
 
     /**
      * FileList mock
@@ -353,7 +353,7 @@ describe("[GCS] uploadFiles INVALID TEST", () => {
       },
       configurable: true,
     });
-    const result = gcs.getAccessToken(window.location);
+    const actual = gcs.getAccessToken(window.location);
 
     /**
      * FileList mock
@@ -397,7 +397,7 @@ describe("[GCS] uploadFiles INVALID TEST", () => {
       },
       configurable: true,
     });
-    const result = gcs.getAccessToken(window.location);
+    const actual = gcs.getAccessToken(window.location);
 
     /**
      * FileList mock
@@ -441,7 +441,7 @@ describe("[GCS] uploadFiles INVALID TEST", () => {
       },
       configurable: true,
     });
-    const result = gcs.getAccessToken(window.location);
+    const actual = gcs.getAccessToken(window.location);
 
     /**
      * FileList mock
@@ -485,7 +485,7 @@ describe("[GCS] uploadFiles INVALID TEST", () => {
       },
       configurable: true,
     });
-    const result = gcs.getAccessToken(window.location);
+    const actual = gcs.getAccessToken(window.location);
 
     /**
      * FileList mock
@@ -529,7 +529,7 @@ describe("[GCS] uploadFiles INVALID TEST", () => {
       },
       configurable: true,
     });
-    const result = gcs.getAccessToken(window.location);
+    const actual = gcs.getAccessToken(window.location);
 
     /**
      * FileList mock
