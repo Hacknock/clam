@@ -1,5 +1,5 @@
 {
-  "name": "stellaria",
+  "name": "clam",
   "version": "0.1.0",
   "description": "File upload interface to Google Cloud Storage, Amazon Web Service S3 and FTP(File Transfer Protocol) server is written in only frontend Javascript.",
   "main": "clam.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Hacknock/stellaria.git"
+    "url": "git+https://github.com/Hacknock/clam.git"
   },
   "keywords": [
     "Cloud",
@@ -22,9 +22,9 @@
   "author": "Akira Kashihara",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Hacknock/stellaria/issues"
+    "url": "https://github.com/Hacknock/clam/issues"
   },
-  "homepage": "https://github.com/Hacknock/stellaria#readme",
+  "homepage": "https://github.com/Hacknock/clam#readme",
   "devDependencies": {
     "jsdom": "^19.0.0",
     "node-fetch": "^3.2.3",
