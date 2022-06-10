@@ -15,8 +15,8 @@ describe("[GCS] getAccessToken VALID TEST", () => {
     redirectUrl: "http://localhost:3000",
     scope: "https://www.googleapis.com/auth/devstorage.read_only",
   };
-  const gcs = new GCS(toolKit);
-  gcs.setCred(params);
+  const sut = new GCS(toolKit);
+  sut.setCred(params);
 
   it("location has hash and access_token", () => {
     //location mock
@@ -27,16 +27,32 @@ describe("[GCS] getAccessToken VALID TEST", () => {
       .toString("hex")
       .substring(0, 160);
     const dummyJoint = crypto.randomBytes(4).toString("hex").substring(0, 4);
+
+    const accessTokenStatement = `&access_token=${dummyJoint}.${dummyToken}`;
+    const tokenTypeStatement = "&token_type=Bearer";
+    const expiresInStatement = "&expires_in=1000";
+    const scopeStatement =
+      "&scope=https://www.googleapis.com/auth/devstorage.read_only";
     Object.defineProperty(window, "location", {
       value: {
-        href: `${url}/#state=pass-through%20value&access_token=${dummyJoint}.${dummyToken}&token_type=Bearer&expires_in=1000&scope=https://www.googleapis.com/auth/devstorage.read_only`,
-        hash: `#state=pass-through%20value&access_token=${dummyJoint}.${dummyToken}&token_type=Bearer&expires_in=1000&scope=https://www.googleapis.com/auth/devstorage.read_only`,
+        href:
+          `${url}/#state=pass-through%20value` +
+          accessTokenStatement +
+          tokenTypeStatement +
+          expiresInStatement +
+          scopeStatement,
+        hash:
+          `#state=pass-through%20value` +
+          accessTokenStatement +
+          tokenTypeStatement +
+          expiresInStatement +
+          scopeStatement,
         configurable: true,
       },
       configurable: true,
     });
-    const result = gcs.getAccessToken(window.location);
-    expect(result).toStrictEqual({ token: `${dummyJoint}.${dummyToken}` });
+    const actual = sut.getAccessToken(window.location);
+    expect(actual).toStrictEqual({ token: `${dummyJoint}.${dummyToken}` });
   });
 
   it("location has hash but it does not have access_token", () => {
@@ -52,8 +68,8 @@ describe("[GCS] getAccessToken VALID TEST", () => {
       },
       configurable: true,
     });
-    const result = gcs.getAccessToken(window.location);
-    expect(result).toStrictEqual({
+    const actual = sut.getAccessToken(window.location);
+    expect(actual).toStrictEqual({
       token: null,
       message: "This location has no access token info.",
     });
@@ -71,8 +87,8 @@ describe("[GCS] getAccessToken VALID TEST", () => {
       },
       configurable: true,
     });
-    const result = gcs.getAccessToken(window.location);
-    expect(result).toStrictEqual({
+    const actual = sut.getAccessToken(window.location);
+    expect(actual).toStrictEqual({
       token: null,
       message: "This location has no access token info.",
     });
@@ -83,8 +99,8 @@ describe("[GCS] getAccessToken VALID TEST", () => {
     delete window.location.hash;
     delete window.location.token;
     delete window.location.configurable;
-    const result = gcs.getAccessToken(window.location);
-    expect(result).toStrictEqual({
+    const actual = sut.getAccessToken(window.location);
+    expect(actual).toStrictEqual({
       token: null,
       message: "This location has no access token info.",
     });
@@ -97,22 +113,22 @@ describe("[GCS] getAccessToken INVALID TEST", () => {
     redirectUrl: "http://localhost:3000",
     scope: "https://www.googleapis.com/auth/devstorage.read_only",
   };
-  const gcs = new GCS(params, toolKit);
+  const sut = new GCS(params, toolKit);
   it("Invalid argument is number", () => {
     expect(() => {
-      const result = gcs.getAccessToken(3333);
+      const actual = sut.getAccessToken(3333);
     }).toThrow(/^You must input location which is Object.$/);
   });
 
   it("Invalid argument is Boolean", () => {
     expect(() => {
-      const result = gcs.getAccessToken(true);
+      const actual = sut.getAccessToken(true);
     }).toThrow(/^You must input location which is Object.$/);
   });
 
   it("Invalid argument is null", () => {
     expect(() => {
-      const result = gcs.getAccessToken(null);
+      const actual = sut.getAccessToken(null);
     }).toThrow(
       /^The argument is null.You must input location which is Object, not null.$/
     );
@@ -121,25 +137,25 @@ describe("[GCS] getAccessToken INVALID TEST", () => {
   it("Invalid argument is undefined", () => {
     let val;
     expect(() => {
-      const result = gcs.getAccessToken(val);
+      const actual = sut.getAccessToken(val);
     }).toThrow(/^You must input location which is Object.$/);
   });
 
   it("Invalid argument is BigInt", () => {
     expect(() => {
-      const result = gcs.getAccessToken(BigInt(84728102837495n));
+      const actual = sut.getAccessToken(BigInt(84728102837495n));
     }).toThrow(/^You must input location which is Object.$/);
   });
 
   it("Invalid argument is Symbol", () => {
     expect(() => {
-      const result = gcs.getAccessToken(Symbol("hoge"));
+      const actual = sut.getAccessToken(Symbol("hoge"));
     }).toThrow(/^You must input location which is Object.$/);
   });
 
   it("Invalid argument is String", () => {
     expect(() => {
-      const result = gcs.getAccessToken("hogehoge");
+      const actual = sut.getAccessToken("hogehoge");
     }).toThrow(/^You must input location which is Object.$/);
   });
 });

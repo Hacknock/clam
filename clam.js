@@ -52,7 +52,7 @@ class Clam {
   /**
    * This function provide auth page to each storage service.
    */
-  getAuth = () => {
+  toAuthPage = () => {
     console.log("Auth");
     if (!this.module) throw Error("This instance is not initialzed.");
     this.module.oauthSignIn();
