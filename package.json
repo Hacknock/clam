@@ -1,0 +1,34 @@
+{
+  "name": "clam",
+  "version": "0.1.0",
+  "description": "File upload interface to Google Cloud Storage, Amazon Web Service S3 and FTP(File Transfer Protocol) server is written in only frontend Javascript.",
+  "main": "clam.js",
+  "scripts": {
+    "test": "vitest",
+    "test:watch": "vitest -w",
+    "coverage": "vitest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hacknock/clam.git"
+  },
+  "keywords": [
+    "Cloud",
+    "Storage",
+    "S3",
+    "FTP",
+    "Javascript"
+  ],
+  "author": "Akira Kashihara",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Hacknock/clam/issues"
+  },
+  "homepage": "https://github.com/Hacknock/clam#readme",
+  "devDependencies": {
+    "jsdom": "^19.0.0",
+    "node-fetch": "^3.2.3",
+    "vi-fetch": "^0.6.1",
+    "vitest": "^0.10.5"
+  }
+}
