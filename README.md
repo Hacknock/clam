@@ -28,7 +28,8 @@ The past libraries to upload files to Cloud Storage only support back-end framew
 # Installation
 
 ```js
-import Clam from "https://raw.githubusercontent.com/Hacknock/clam/1.3.0/clam.min.js";
+import Clam from "https://rawcdn.githack.com/Hacknock/clam/1.3.0/clam.min.js";
+const clam = new Clam();
 ```
 
 # Minimal Example
