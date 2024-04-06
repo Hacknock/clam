@@ -19,6 +19,7 @@
     "FTP",
     "Javascript"
   ],
+  "main": "clam.min.js",
   "scripts": {
     "build": "webpack",
     "test": "vitest",
