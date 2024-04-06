@@ -1,28 +1,28 @@
-name: unitTest
+name: Unit Test
 
 on:
-  push:
-    branches:
-      - dev-*
+  workflow_dispatch:
 
 jobs:
   unit_test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: "16.14.0"
+          node-version: 20
 
-      - name: check node and npm version
+      - name: Check node and npm version
         run: |
           node --version
           npm --version
 
-      - name: test run
+      - name: Run Unit Test
         run: |
           npm ci
           npm run test
