@@ -6,7 +6,8 @@
   "scripts": {
     "test": "vitest",
     "test:watch": "vitest -w",
-    "coverage": "vitest --coverage"
+    "coverage": "vitest --coverage",
+    "minify": "minify clam.js > clam.min.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,7 @@
   "homepage": "https://github.com/Hacknock/clam#readme",
   "devDependencies": {
     "jsdom": "^19.0.0",
+    "minify": "^11.1.1",
     "node-fetch": "^3.2.3",
     "vi-fetch": "^0.6.1",
     "vitest": "^0.10.5"
