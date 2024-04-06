@@ -8,8 +8,6 @@
 import GCS from "./lib/gcs.js";
 import ToolKit from "./lib/toolkit.js";
 
-("use strict");
-
 class Clam {
   /**
    * Clam class is an entry point to your application or service.

@@ -19,7 +19,7 @@ The current version only supports uploading files to only Cloud Storage.
 
 # Demo
 
-You can try to use `clam` demo web application on [https://hacknock.github.io/clam.github.io/](https://hacknock.github.io/clam.github.io/)
+You can try to use `clam` demo web application on [https://hacknock.github.io/clam-example/](https://hacknock.github.io/clam-example/)
 
 # Advantages
 
@@ -27,13 +27,18 @@ The past libraries to upload files to Cloud Storage only support back-end framew
 
 # Installation
 
+```html
+<script 
+  type="text/javascript" 
+  src="https://raw.githubusercontent.com/Hacknock/clam/1.2.0/clam.min.js"
+></script>
+```
+
 You only clone this repository on the root directory of your project.
 
 # Minimal Example
 
-We open the minimal example code to the public on [https://github.com/Hacknock/clam.github.io](https://github.com/Hacknock/clam.github.io). Please refer there. This source code is a [demo site](https://hacknock.github.io/clam.github.io/) of `clam`.
-
-Demo Site URL) [https://hacknock.github.io/clam.github.io/](https://hacknock.github.io/clam.github.io/)
+We open the minimal example code to the public on [Hacknock/clam-example](https://github.com/Hacknock/clam-example). Please refer there. This source code is a [demo site](https://hacknock.github.io/clam-example/) of `clam`.
 
 # Contributors
 
