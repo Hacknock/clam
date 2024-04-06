@@ -30,7 +30,7 @@ The past libraries to upload files to Cloud Storage only support back-end framew
 ```html
 <script 
   type="text/javascript"
-  src="https://rawcdn.githack.com/Hacknock/clam/1.3.0/clam.min.js"
+  src="https://rawcdn.githack.com/Hacknock/clam/1.4.0/clam.min.js"
 ></script>
 ```
 
